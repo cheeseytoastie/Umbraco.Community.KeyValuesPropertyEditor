@@ -11,7 +11,7 @@
     <PackageId>Umbraco.Community.Umbraco.Community.KeyValuesPropertyEditor</PackageId>
     <Title>Umbraco .Community .Key Values Property Editor </Title>
     <Description>...</Description>
-    <PackageTags>umbraco;umbraco-marketplace</PackageTags>
+    <!--<PackageTags>umbraco;umbraco-marketplace</PackageTags>-->
     <Authors>Steve Morgan</Authors>
     <Copyright>$([System.DateTime]::UtcNow.ToString(`yyyy`)) © Steve Morgan</Copyright>
     <PackageProjectUrl>https://github.com/cheeseytoastie/Umbraco.Community.KeyValuesPropertyEditor</PackageProjectUrl>
