@@ -1,0 +1,14 @@
+{
+    "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json", 
+    "AuthorDetails": {
+      "Name": "Steve Morgan",
+      "ImageUrl": "https://github.com/cheeseytoastie.png"
+    },
+    "Category": "",
+    "Description": "",
+    "LicenseTypes": [ "Free" ],
+    "IssueTrackerUrl": "https://github.com/cheeseytoastie/Umbraco.Community.KeyValuesPropertyEditor/issues",
+    "PackageType": "Package",
+    "Tags": [],
+    "Title": "Umbraco .Community .Key Values Property Editor "
+  }

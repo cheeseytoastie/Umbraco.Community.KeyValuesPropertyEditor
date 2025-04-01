@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33020.496
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DFB27B76-D0DB-4B82-8901-E5EB3587A491}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\CONTRIBUTING.md = ..\.github\CONTRIBUTING.md
+		..\.github\README.md = ..\.github\README.md
+		..\docs\README_nuget.md = ..\docs\README_nuget.md
+		..\umbraco-marketplace.json = ..\umbraco-marketplace.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Community.KeyValuesPropertyEditor.TestSite", "Umbraco.Community.KeyValuesPropertyEditor.TestSite\Umbraco.Community.KeyValuesPropertyEditor.TestSite.csproj", "{C0019788-9EAC-46CA-9580-6937564300E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco.Community.KeyValuesPropertyEditor", "Umbraco.Community.KeyValuesPropertyEditor\Umbraco.Community.KeyValuesPropertyEditor.csproj", "{CDCB783C-0E18-4AEB-998A-75E81B012303}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0019788-9EAC-46CA-9580-6937564300E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0019788-9EAC-46CA-9580-6937564300E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0019788-9EAC-46CA-9580-6937564300E3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C0019788-9EAC-46CA-9580-6937564300E3}.Debug|x64.Build.0 = Debug|Any CPU
+		{C0019788-9EAC-46CA-9580-6937564300E3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C0019788-9EAC-46CA-9580-6937564300E3}.Debug|x86.Build.0 = Debug|Any CPU
+		{C0019788-9EAC-46CA-9580-6937564300E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0019788-9EAC-46CA-9580-6937564300E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0019788-9EAC-46CA-9580-6937564300E3}.Release|x64.ActiveCfg = Release|Any CPU
+		{C0019788-9EAC-46CA-9580-6937564300E3}.Release|x64.Build.0 = Release|Any CPU
+		{C0019788-9EAC-46CA-9580-6937564300E3}.Release|x86.ActiveCfg = Release|Any CPU
+		{C0019788-9EAC-46CA-9580-6937564300E3}.Release|x86.Build.0 = Release|Any CPU
+		{CDCB783C-0E18-4AEB-998A-75E81B012303}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDCB783C-0E18-4AEB-998A-75E81B012303}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDCB783C-0E18-4AEB-998A-75E81B012303}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CDCB783C-0E18-4AEB-998A-75E81B012303}.Debug|x64.Build.0 = Debug|Any CPU
+		{CDCB783C-0E18-4AEB-998A-75E81B012303}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CDCB783C-0E18-4AEB-998A-75E81B012303}.Debug|x86.Build.0 = Debug|Any CPU
+		{CDCB783C-0E18-4AEB-998A-75E81B012303}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDCB783C-0E18-4AEB-998A-75E81B012303}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDCB783C-0E18-4AEB-998A-75E81B012303}.Release|x64.ActiveCfg = Release|Any CPU
+		{CDCB783C-0E18-4AEB-998A-75E81B012303}.Release|x64.Build.0 = Release|Any CPU
+		{CDCB783C-0E18-4AEB-998A-75E81B012303}.Release|x86.ActiveCfg = Release|Any CPU
+		{CDCB783C-0E18-4AEB-998A-75E81B012303}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6F07004F-9903-4AEB-9ED0-BE57A0326D20}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,14 @@
+{
+  "id": "Umbraco.Community.KeyValuesPropertyEditor",
+  "name": "Umbraco.Community.KeyValuesPropertyEditor",
+  "version": "0.0.0",
+  "allowPackageTelemetry": true,
+  "extensions": [
+    {
+      "name": "Umbraco Community Key Values Property Editor Bundle",
+      "alias": "Umbraco.Community.KeyValuesPropertyEditor.Bundle",
+      "type": "bundle",
+      "js": "/App_Plugins/UmbracoCommunityKeyValuesPropertyEditor/umbraco-community-key-values-property-editor.js"
+    }
+  ]
+}
