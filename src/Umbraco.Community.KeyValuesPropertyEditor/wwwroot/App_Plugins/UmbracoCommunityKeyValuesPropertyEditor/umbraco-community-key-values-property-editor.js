@@ -1,32 +1,33 @@
-const a = [
+const o = [
   {
-    name: "Umbraco Community Key Values Property Editor Entrypoint",
-    alias: "Umbraco.Community.KeyValuesPropertyEditor.Entrypoint",
-    type: "backofficeEntryPoint",
-    js: () => import("./entrypoint-DXpgpYPv.js")
-  }
-], o = [
-  {
-    name: "Umbraco Community Key Values Property Editor Dashboard",
-    alias: "Umbraco.Community.KeyValuesPropertyEditor.Dashboard",
-    type: "dashboard",
-    js: () => import("./dashboard.element-o82-SbhX.js"),
+    name: "Umbraco Community Key Values Property Editor Property Editor",
+    alias: "Umbraco.Community.KeyValuesPropertyEditor.PropertyEditor",
+    type: "propertyEditorUi",
+    js: () => import("./key-values-property-editor-ui.element-Sjaxx7tQ.js"),
+    elementName: "ss-translations-property-editor-ui",
     meta: {
-      label: "Example Dashboard",
-      pathname: "example-dashboard"
-    },
-    conditions: [
-      {
-        alias: "Umb.Condition.SectionAlias",
-        match: "Umb.Section.Content"
-      }
-    ]
+      label: "Umbraco Community Key Values",
+      icon: "icon-globe",
+      group: "common",
+      propertyEditorSchemaAlias: "Umbraco.Plain.Json"
+    }
+    //meta: {
+    //  label: "Example Dashboard",
+    //  pathname: "example-dashboard"
+    //},
+    //conditions: [
+    //  {
+    //    alias: 'Umb.Condition.SectionAlias',
+    //    match: 'Umb.Section.Content',
+    //  }
+    //],
   }
-], t = [
-  ...a,
+], r = [
+  //...entrypoints,
+  //...dashboards,
   ...o
 ];
 export {
-  t as manifests
+  r as manifests
 };
 //# sourceMappingURL=umbraco-community-key-values-property-editor.js.map
