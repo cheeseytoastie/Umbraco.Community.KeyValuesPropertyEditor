@@ -105,7 +105,7 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends LitEle
     this.dispatchEvent(new UmbPropertyValueChangeEvent());
   }
 
-  renderTranslationList() {
+  renderItemsList() {
     // this is a simple example of just writing out the values - to be replaced with the fields below
     // todo - remove this hack when when assigning value to _items issue fixed
     if (this._items.length === 0 && this.value?.length !== 0) {
@@ -113,11 +113,6 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends LitEle
     }
 
     if (this._items?.length) {
-      //return html`
-      //      <ul>
-      //          ${this._items.map((translation) =>
-      //  html`<li>${translation.key} ${translation.value}</li>`)}
-      //      </ul>`
       return html`
       <ul>
         ${repeat(this._items, (item) => item.key, (item, index) => html`
@@ -141,45 +136,9 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends LitEle
     }
   }
 
-  renderTranslationFields() {
-    // todo - use this._items when init issue fixed
-    if (this.value?.length) {
-     return html`
-           ${repeat(this._items, (item) => item.key, (item, index) => {
-             return html`<p>${index}: ${item.key}: ${item.value}</p>`;
-     })}
-           `;
-  
-     // todo - do something similar to the umbraco multiple text string - so create an item element and render a list of these.
-     // the core example uses UUIInputElement which doesn't seem to be available
-  
-     //return html`
-     //${repeat(
-     //    this.value,
-     //    (item, index) => index,
-     //    (item, index) => html`
-     //		<umb-input-multiple-text-string-item
-     //			name="item-${index}"
-     //			data-sort-entry-id=${item}
-     //			required
-     //			required-message="Item ${index + 1} is missing a value"
-     //			value=${item}>
-     //		</umb-input-multiple-text-string-item>
-     //	`,
-     //    // 	  				    @enter=${this.#onAdd}
-     //    // @delete=${(event: UmbDeleteEvent) => this.#deleteItem(event, index)}
-     //	//		@input=${(event: UmbInputEvent) => this.#onInput(event, index)}
-     //)}
-     //`;
-   } else {
-     return html`<span>You don't have any items yet.</span>`;
-   }
-  }
-
   render() {
     return html`
-        ${this.renderTranslationList()}
-        ${this.renderTranslationFields()}
+        ${this.renderItemsList()}
             <span>Add a new item</span>
             <uui-input
                 id="key-value-new-key"
