@@ -3,6 +3,8 @@ import { UmbLitElement } from '@umbraco-cms/backoffice/lit-element';
 import { umbConfirmModal } from '@umbraco-cms/backoffice/modal';
 import { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/property-editor";
 import { UmbPropertyValueChangeEvent } from "@umbraco-cms/backoffice/property-editor";
+import { type UmbPropertyEditorConfigCollection } from '@umbraco-cms/backoffice/property-editor';
+//import { UmbValidationContext } from "@umbraco-cms/backoffice/validation";
 
 /*
 This is a work in progress
@@ -34,8 +36,22 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends UmbLit
   @state()
   private _items: ArrayOf<UmbCommunityKeyValue> = [];
 
+  @state()
+  private _uniquekeys?: boolean;
+
+  @property({ attribute: false })
+  public set config(config: UmbPropertyEditorConfigCollection) {
+    this._uniquekeys = config.getValueByAlias("uniquekeys");
+  }
+
+  @state()
+  private _showKeyErrorEmpty: boolean = false;
+
+  @state()
+  private _showKeyErrorNotUnique: boolean = false;
+
   @query('#key-value-new-key')
-  newNameInp!: HTMLInputElement;
+  newKeyInp!: HTMLInputElement;
 
   @query('#key-value-new-value')
   newValueInp!: HTMLInputElement;
@@ -48,16 +64,40 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends UmbLit
     this._items = this.value;
   }
 
+  // todo - couldn#t make this work
+  //#validation = new UmbValidationContext(this);
+
   #onAddRow() {
+    // todo - always comes back as valid?
+    //this.#validation.validate().then(() => {
+    //  console.log('Valid');
+    //}, () => {
+    //  console.log('Invalid');
+    //});
+
+    // check the key is non-empty
+    if (this.newKeyInp.value == '') {
+      this._showKeyErrorEmpty = true;
+      return;
+    }
+
+    let newKeyTrimmed = this.newKeyInp.value.trim();
+
+    // if the config is set check if the value is unique
+    if (this._uniquekeys && this._items.some(i => i.key === newKeyTrimmed)) {
+        this._showKeyErrorNotUnique = true;
+        return;
+    }
+
     const currentInputTyped: UmbCommunityKeyValue = {
-      key: this.newNameInp.value,
+      key: newKeyTrimmed,
       value: this.newValueInp.value
     };
 
     // check the value is an array, the concatenate o/w create an array with this as the first item
     this._items = Array.isArray(this.value) ? [...this.value, currentInputTyped] : [currentInputTyped];
 
-    this.newNameInp.value = '';
+    this.newKeyInp.value = '';
     this.newValueInp.value = '';
 
     this.#updatePropertyEditorValue();
@@ -109,32 +149,33 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends UmbLit
       <ul>
         ${repeat(this._items, (item) => item.key, (item, index) => html`
             <li>
-              <umb-form-validation-message id="validation-message" @invalid=${this.#onInvalid} @valid=${this.#onValid}>
-                <div class="wrapper">
-                  <uui-input
-                    class="kv-input"
-                    type="text"
-                    name="${index}"
-                    value="${item.key}"
-                    required=true
-                    required-message="A key value is required"
-                    ></uui-input>
-                  <uui-input
-                    class="kv-input"
-                    type="text"
-                    name="${index}"
-                    value="${item.value}"
-                    @input=${(e: InputEvent) => this._onEditRowValue(e, index)}>
-                  </uui-input>
-                  <uui-button
-						        compact
-						        color="danger"
-						        label="remove ${item.key}"
-						        look="outline"
-						        @click=${() => this.#onDelete(index)}>
-						        <uui-icon name="icon-trash"></uui-icon>
-					        </uui-button>
-                </div>
+              <umb-form-validation-message id="validation-message" class="wrapper" @invalid=${this.#onInvalid} @valid=${this.#onValid}>
+                <uui-input
+                  class="kv-input"
+                  label="text input"
+                  type="text"
+                  name="${index}"
+                  value="${item.key}"
+                  required=true
+                  required-message="A key value is required"
+                  disabled="disabled"
+                  ></uui-input>
+                <uui-input
+                  class="kv-input"
+                  label="text input"
+                  type="text"
+                  name="${index}"
+                  value="${item.value}"
+                  @input=${(e: InputEvent) => this._onEditRowValue(e, index)}>
+                </uui-input>
+                <uui-button
+						      compact
+						      color="danger"
+						      label="remove ${item.key}"
+						      look="outline"
+						      @click=${() => this.#onDelete(index)}>
+						      <uui-icon name="icon-trash"></uui-icon>
+					      </uui-button>
               </umb-form-validation-message>
             </li> `
       )
@@ -149,13 +190,15 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends UmbLit
     return html`
         ${this.renderItemsList()}
             <hr/>
-            <div class="wrapper">
+            <umb-form-validation-message id="validation-message-new-row" class="wrapper" @invalid=${this.#onInvalid} @valid=${this.#onValid}>
               <uui-input
                   id="key-value-new-key"
                   class="kv-input"
                   label="text input"
                   placeholder="key*"
                   value=""
+                  required=true
+                  required-message="A key value is required"
               >
               </uui-input>
               <uui-input
@@ -175,7 +218,9 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends UmbLit
               >
                   Add item
               </uui-button>
-            </div>
+            </umb-form-validation-message>
+            <span id="kv-new-row-error-empty" class=${this._showKeyErrorEmpty ? 'kv-error show' : 'kv-error'}>Error: Key cannot be empty</span>
+            <span id="kv-new-row-error-not-unique" class=${this._showKeyErrorNotUnique ? 'kv-error show' : 'kv-error'}>Error: Key already exists</span>
         `;
   }
 
@@ -192,6 +237,17 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends UmbLit
       ul {
         list-style: none;
         padding-inline-start: 0;
+      }
+      /* the absolute pain to find this is how to change the disabled font color.. */
+      uui-input {
+        --uui-color-disabled-contrast: black;
+      }
+      .kv-error {
+        color: var(--uui-color-danger-standalone);
+        display: none;
+      }
+      .kv-error.show {
+        display: block;
       }
       `,
   ];

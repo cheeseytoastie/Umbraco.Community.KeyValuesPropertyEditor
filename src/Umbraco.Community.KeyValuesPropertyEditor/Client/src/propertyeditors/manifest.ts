@@ -7,9 +7,25 @@ export const manifests: Array<UmbExtensionManifest> = [
     "elementName": "ss-translations-property-editor-ui",
     "meta": {
       "label": "Umbraco Community Key Values",
-      "icon": "icon-globe",
+      "icon": "icon-old-key",
       "group": "common",
-      "propertyEditorSchemaAlias": "Umbraco.Plain.Json"
+      "propertyEditorSchemaAlias": "Umbraco.Plain.Json",
+      "settings": {
+        "properties": [
+          {
+            "alias": "uniquekeys",
+            "label": "Use unqiue keys",
+            "description": "Tries to validate the keys to ensure they are unique",
+            "propertyEditorUiAlias": "Umb.PropertyEditorUi.Toggle"
+          }
+        ],
+        "defaultData": [
+          {
+            "alias": "uniquekeys",
+            "value": true
+          }
+        ]
+      }
     }
   }
 ];

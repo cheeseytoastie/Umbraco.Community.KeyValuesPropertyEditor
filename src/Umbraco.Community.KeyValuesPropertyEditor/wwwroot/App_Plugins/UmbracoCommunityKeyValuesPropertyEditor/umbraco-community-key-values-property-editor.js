@@ -1,23 +1,39 @@
-const o = [
+const e = [
   {
     name: "Umbraco Community Key Values Property Editor Property Editor",
     alias: "Umbraco.Community.KeyValuesPropertyEditor.PropertyEditor",
     type: "propertyEditorUi",
-    js: () => import("./key-values-property-editor-ui.element-KWLIIKCE.js"),
+    js: () => import("./key-values-property-editor-ui.element-DSIvt7BV.js"),
     elementName: "ss-translations-property-editor-ui",
     meta: {
       label: "Umbraco Community Key Values",
-      icon: "icon-globe",
+      icon: "icon-old-key",
       group: "common",
-      propertyEditorSchemaAlias: "Umbraco.Plain.Json"
+      propertyEditorSchemaAlias: "Umbraco.Plain.Json",
+      settings: {
+        properties: [
+          {
+            alias: "uniquekeys",
+            label: "Use unqiue keys",
+            description: "Tries to validate the keys to ensure they are unique",
+            propertyEditorUiAlias: "Umb.PropertyEditorUi.Toggle"
+          }
+        ],
+        defaultData: [
+          {
+            alias: "uniquekeys",
+            value: !0
+          }
+        ]
+      }
     }
   }
-], r = [
+], t = [
   //...entrypoints,
   //...dashboards,
-  ...o
+  ...e
 ];
 export {
-  r as manifests
+  t as manifests
 };
 //# sourceMappingURL=umbraco-community-key-values-property-editor.js.map
