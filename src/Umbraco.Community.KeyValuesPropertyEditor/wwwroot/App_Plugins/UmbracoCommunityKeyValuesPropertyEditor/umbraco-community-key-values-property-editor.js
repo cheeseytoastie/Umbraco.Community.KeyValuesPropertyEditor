@@ -3,7 +3,7 @@ const e = [
     name: "Umbraco Community Key Values Property Editor Property Editor",
     alias: "Umbraco.Community.KeyValuesPropertyEditor.PropertyEditor",
     type: "propertyEditorUi",
-    js: () => import("./key-values-property-editor-ui.element-DSIvt7BV.js"),
+    js: () => import("./key-values-property-editor-ui.element-DHGhCGEc.js"),
     elementName: "ss-translations-property-editor-ui",
     meta: {
       label: "Umbraco Community Key Values",

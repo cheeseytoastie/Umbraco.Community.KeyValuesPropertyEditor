@@ -1,17 +1,17 @@
-import { repeat as b, html as l, css as E, property as v, state as p, query as _, customElement as g } from "@umbraco-cms/backoffice/external/lit";
-import { UmbLitElement as K } from "@umbraco-cms/backoffice/lit-element";
+import { repeat as E, html as l, css as b, property as d, state as p, query as m, customElement as K } from "@umbraco-cms/backoffice/external/lit";
+import { UmbLitElement as g } from "@umbraco-cms/backoffice/lit-element";
 import { umbConfirmModal as q } from "@umbraco-cms/backoffice/modal";
 import { UmbPropertyValueChangeEvent as I } from "@umbraco-cms/backoffice/property-editor";
-var $ = Object.defineProperty, V = Object.getOwnPropertyDescriptor, w = (e) => {
+var $ = Object.defineProperty, U = Object.getOwnPropertyDescriptor, v = (e) => {
   throw TypeError(e);
-}, n = (e, t, i, o) => {
-  for (var u = o > 1 ? void 0 : o ? V(t, i) : t, y = e.length - 1, m; y >= 0; y--)
-    (m = e[y]) && (u = (o ? m(t, i, u) : m(u)) || u);
-  return o && u && $(t, i, u), u;
-}, A = (e, t, i) => t.has(e) || w("Cannot " + i), C = (e, t, i) => t.has(e) ? w("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, i), a = (e, t, i) => (A(e, t, "access private method"), i), r, k, f, h, d, c;
-let s = class extends K {
+}, a = (e, t, i, o) => {
+  for (var n = o > 1 ? void 0 : o ? U(t, i) : t, y = e.length - 1, c; y >= 0; y--)
+    (c = e[y]) && (n = (o ? c(t, i, n) : c(n)) || n);
+  return o && n && $(t, i, n), n;
+}, V = (e, t, i) => t.has(e) || v("Cannot " + i), A = (e, t, i) => t.has(e) ? v("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, i), u = (e, t, i) => (V(e, t, "access private method"), i), s, _, w, h, k, f;
+let r = class extends g {
   constructor() {
-    super(...arguments), C(this, r), this.value = [], this._items = [], this._showKeyErrorEmpty = !1, this._showKeyErrorNotUnique = !1;
+    super(...arguments), A(this, s), this.value = [], this._items = [], this._showKeyErrorEmpty = !1, this._showKeyErrorNotUnique = !1;
   }
   set config(e) {
     this._uniquekeys = e.getValueByAlias("uniquekeys");
@@ -25,18 +25,21 @@ let s = class extends K {
       key: this._items[t].key,
       value: e.target.value
     };
-    this._items = [...this._items.slice(0, t), o, ...this._items.slice(t + 1)], a(this, r, h).call(this);
+    this._items = [...this._items.slice(0, t), o, ...this._items.slice(t + 1)], u(this, s, h).call(this);
+  }
+  _onEditNewKey() {
+    this._showKeyErrorEmpty = !1, this._showKeyErrorNotUnique = !1;
   }
   renderItemsList() {
     var e;
     return (e = this._items) != null && e.length ? l`
       <ul>
-        ${b(
+        ${E(
       this._items,
       (t) => t.key,
       (t, i) => l`
             <li>
-              <umb-form-validation-message id="validation-message" class="wrapper" @invalid=${a(this, r, c)} @valid=${a(this, r, d)}>
+              <umb-form-validation-message id="validation-message" class="wrapper" @invalid=${u(this, s, f)} @valid=${u(this, s, k)}>
                 <uui-input
                   class="kv-input"
                   label="text input"
@@ -60,7 +63,7 @@ let s = class extends K {
 						      color="danger"
 						      label="remove ${t.key}"
 						      look="outline"
-						      @click=${() => a(this, r, f).call(this, i)}>
+						      @click=${() => u(this, s, w).call(this, i)}>
 						      <uui-icon name="icon-trash"></uui-icon>
 					      </uui-button>
               </umb-form-validation-message>
@@ -72,13 +75,14 @@ let s = class extends K {
     return l`
         ${this.renderItemsList()}
             <hr/>
-            <umb-form-validation-message id="validation-message-new-row" class="wrapper" @invalid=${a(this, r, c)} @valid=${a(this, r, d)}>
+            <div class="wrapper">
               <uui-input
                   id="key-value-new-key"
                   class="kv-input"
                   label="text input"
                   placeholder="key*"
                   value=""
+                  @input=${this._onEditNewKey}
                   required=true
                   required-message="A key value is required"
               >
@@ -96,18 +100,18 @@ let s = class extends K {
                   class="kv-input"
                   look="primary"
                   label="Add item"
-                  @click=${a(this, r, k)}
+                  @click=${u(this, s, _)}
               >
                   Add item
               </uui-button>
-            </umb-form-validation-message>
-            <span id="kv-new-row-error-empty" class=${this._showKeyErrorEmpty ? "kv-error show" : "kv-error"}>Key cannot be empty</span>
-            <span id="kv-new-row-error-not-unique" class=${this._showKeyErrorNotUnique ? "kv-error show" : "kv-error"}>Key already exists</span>
+            </div>
+            <span id="kv-new-row-error-empty" class=${this._showKeyErrorEmpty ? "kv-error show" : "kv-error"}>Error: Key cannot be empty</span>
+            <span id="kv-new-row-error-not-unique" class=${this._showKeyErrorNotUnique ? "kv-error show" : "kv-error"}>Error: Key already exists</span>
         `;
   }
 };
-r = /* @__PURE__ */ new WeakSet();
-k = function() {
+s = /* @__PURE__ */ new WeakSet();
+_ = function() {
   if (this.newKeyInp.value == "") {
     this._showKeyErrorEmpty = !0;
     return;
@@ -121,25 +125,25 @@ k = function() {
     key: e,
     value: this.newValueInp.value
   };
-  this._items = Array.isArray(this.value) ? [...this.value, t] : [t], this.newKeyInp.value = "", this.newValueInp.value = "", a(this, r, h).call(this);
+  this._items = Array.isArray(this.value) ? [...this.value, t] : [t], this.newKeyInp.value = "", this.newValueInp.value = "", u(this, s, h).call(this);
 };
-f = function(e) {
+w = function(e) {
   q(this, { headline: "Delete?", content: "Are you sure you want to delete this item?" }).then(() => {
-    this._items = [...this._items.slice(0, e), ...this._items.slice(e + 1)], a(this, r, h).call(this);
+    this._items = [...this._items.slice(0, e), ...this._items.slice(e + 1)], u(this, s, h).call(this);
   }).catch(() => {
   });
 };
 h = function() {
   this.value = this._items, this.dispatchEvent(new I());
 };
-d = function(e) {
+k = function(e) {
   e.stopPropagation();
 };
-c = function(e) {
+f = function(e) {
   e.stopPropagation();
 };
-s.styles = [
-  E`
+r.styles = [
+  b`
       .wrapper {
           margin-top: 10px;
           display: flex;
@@ -165,34 +169,34 @@ s.styles = [
       }
       `
 ];
-n([
-  v()
-], s.prototype, "value", 2);
-n([
+a([
+  d()
+], r.prototype, "value", 2);
+a([
   p()
-], s.prototype, "_items", 2);
-n([
+], r.prototype, "_items", 2);
+a([
   p()
-], s.prototype, "_uniquekeys", 2);
-n([
-  v({ attribute: !1 })
-], s.prototype, "config", 1);
-n([
+], r.prototype, "_uniquekeys", 2);
+a([
+  d({ attribute: !1 })
+], r.prototype, "config", 1);
+a([
   p()
-], s.prototype, "_showKeyErrorEmpty", 2);
-n([
+], r.prototype, "_showKeyErrorEmpty", 2);
+a([
   p()
-], s.prototype, "_showKeyErrorNotUnique", 2);
-n([
-  _("#key-value-new-key")
-], s.prototype, "newKeyInp", 2);
-n([
-  _("#key-value-new-value")
-], s.prototype, "newValueInp", 2);
-s = n([
-  g("key-values-property-editor-ui")
-], s);
+], r.prototype, "_showKeyErrorNotUnique", 2);
+a([
+  m("#key-value-new-key")
+], r.prototype, "newKeyInp", 2);
+a([
+  m("#key-value-new-value")
+], r.prototype, "newValueInp", 2);
+r = a([
+  K("key-values-property-editor-ui")
+], r);
 export {
-  s as default
+  r as default
 };
-//# sourceMappingURL=key-values-property-editor-ui.element-DSIvt7BV.js.map
+//# sourceMappingURL=key-values-property-editor-ui.element-DHGhCGEc.js.map

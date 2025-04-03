@@ -12,12 +12,12 @@ This is a work in progress
 WHAT WORKS NOW
 * You can add, delete and update items - the save and publish stores to the db and it loads.
 * I do check for a new property so that it works to add the first item
+* Can enable / disable a uniqueness check on the key
 
 TODO:
 1) Sorter
-2) Check the key is unique and not null on add (perhaps a nice config option)
-3) Maybe a backend property type convertor. - if we use a key value pair then recheck items are unique - what to do if some junk duplicates are there?
-4) Style and tidy up
+2) Maybe a backend property type convertor. - if we use a key value pair then recheck items are unique - what to do if some junk duplicates are there?
+3) Use UmbValidationContext properly - couldn't get it to play nicely
 */
 
 // todo - should these be here or inside the custom element
@@ -64,7 +64,7 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends UmbLit
     this._items = this.value;
   }
 
-  // todo - couldn#t make this work
+  // todo - couldn't make this work
   //#validation = new UmbValidationContext(this);
 
   #onAddRow() {
@@ -125,6 +125,11 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends UmbLit
     this._items = [...this._items.slice(0, index), updatedItem, ...this._items.slice(index + 1)];
 
     this.#updatePropertyEditorValue();
+  }
+
+  private _onEditNewKey() {
+    this._showKeyErrorEmpty = false;
+    this._showKeyErrorNotUnique = false;
   }
 
   #updatePropertyEditorValue() {
@@ -190,13 +195,14 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends UmbLit
     return html`
         ${this.renderItemsList()}
             <hr/>
-            <umb-form-validation-message id="validation-message-new-row" class="wrapper" @invalid=${this.#onInvalid} @valid=${this.#onValid}>
+            <div class="wrapper">
               <uui-input
                   id="key-value-new-key"
                   class="kv-input"
                   label="text input"
                   placeholder="key*"
                   value=""
+                  @input=${this._onEditNewKey}
                   required=true
                   required-message="A key value is required"
               >
@@ -218,7 +224,7 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends UmbLit
               >
                   Add item
               </uui-button>
-            </umb-form-validation-message>
+            </div>
             <span id="kv-new-row-error-empty" class=${this._showKeyErrorEmpty ? 'kv-error show' : 'kv-error'}>Error: Key cannot be empty</span>
             <span id="kv-new-row-error-not-unique" class=${this._showKeyErrorNotUnique ? 'kv-error show' : 'kv-error'}>Error: Key already exists</span>
         `;
