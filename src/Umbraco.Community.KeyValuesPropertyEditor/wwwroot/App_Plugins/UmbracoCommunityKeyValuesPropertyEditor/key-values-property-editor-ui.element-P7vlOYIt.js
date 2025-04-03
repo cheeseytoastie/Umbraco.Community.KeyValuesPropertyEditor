@@ -1,17 +1,17 @@
-import { repeat as E, html as l, css as b, property as d, state as p, query as m, customElement as K } from "@umbraco-cms/backoffice/external/lit";
-import { UmbLitElement as g } from "@umbraco-cms/backoffice/lit-element";
+import { repeat as E, html as l, css as b, property as d, state as p, query as m, customElement as g } from "@umbraco-cms/backoffice/external/lit";
+import { UmbLitElement as K } from "@umbraco-cms/backoffice/lit-element";
 import { umbConfirmModal as q } from "@umbraco-cms/backoffice/modal";
 import { UmbPropertyValueChangeEvent as I } from "@umbraco-cms/backoffice/property-editor";
 var $ = Object.defineProperty, U = Object.getOwnPropertyDescriptor, v = (e) => {
   throw TypeError(e);
-}, a = (e, t, i, o) => {
-  for (var n = o > 1 ? void 0 : o ? U(t, i) : t, y = e.length - 1, c; y >= 0; y--)
-    (c = e[y]) && (n = (o ? c(t, i, n) : c(n)) || n);
-  return o && n && $(t, i, n), n;
-}, V = (e, t, i) => t.has(e) || v("Cannot " + i), A = (e, t, i) => t.has(e) ? v("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, i), u = (e, t, i) => (V(e, t, "access private method"), i), s, _, w, h, k, f;
-let r = class extends g {
+}, o = (e, t, i, s) => {
+  for (var n = s > 1 ? void 0 : s ? U(t, i) : t, y = e.length - 1, c; y >= 0; y--)
+    (c = e[y]) && (n = (s ? c(t, i, n) : c(n)) || n);
+  return s && n && $(t, i, n), n;
+}, V = (e, t, i) => t.has(e) || v("Cannot " + i), A = (e, t, i) => t.has(e) ? v("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, i), u = (e, t, i) => (V(e, t, "access private method"), i), a, _, w, h, k, f;
+let r = class extends K {
   constructor() {
-    super(...arguments), A(this, s), this.value = [], this._items = [], this._showKeyErrorEmpty = !1, this._showKeyErrorNotUnique = !1;
+    super(...arguments), A(this, a), this.value = [], this._items = [], this._showKeyErrorEmpty = !1, this._showKeyErrorNotUnique = !1;
   }
   set config(e) {
     this._uniquekeys = e.getValueByAlias("uniquekeys");
@@ -21,11 +21,11 @@ let r = class extends g {
     super.connectedCallback(), this._items = this.value;
   }
   _onEditRowValue(e, t) {
-    const o = {
+    const s = {
       key: this._items[t].key,
       value: e.target.value
     };
-    this._items = [...this._items.slice(0, t), o, ...this._items.slice(t + 1)], u(this, s, h).call(this);
+    this._items = [...this._items.slice(0, t), s, ...this._items.slice(t + 1)], u(this, a, h).call(this);
   }
   _onEditNewKey() {
     this._showKeyErrorEmpty = !1, this._showKeyErrorNotUnique = !1;
@@ -39,7 +39,7 @@ let r = class extends g {
       (t) => t.key,
       (t, i) => l`
             <li>
-              <umb-form-validation-message id="validation-message" class="wrapper" @invalid=${u(this, s, f)} @valid=${u(this, s, k)}>
+              <umb-form-validation-message id="validation-message" class="wrapper" @invalid=${u(this, a, f)} @valid=${u(this, a, k)}>
                 <uui-input
                   class="kv-input"
                   label="text input"
@@ -56,14 +56,14 @@ let r = class extends g {
                   type="text"
                   name="${i}"
                   value="${t.value}"
-                  @input=${(o) => this._onEditRowValue(o, i)}>
+                  @input=${(s) => this._onEditRowValue(s, i)}>
                 </uui-input>
                 <uui-button
 						      compact
 						      color="danger"
 						      label="remove ${t.key}"
 						      look="outline"
-						      @click=${() => u(this, s, w).call(this, i)}>
+						      @click=${() => u(this, a, w).call(this, i)}>
 						      <uui-icon name="icon-trash"></uui-icon>
 					      </uui-button>
               </umb-form-validation-message>
@@ -100,7 +100,7 @@ let r = class extends g {
                   class="kv-input"
                   look="primary"
                   label="Add item"
-                  @click=${u(this, s, _)}
+                  @click=${u(this, a, _)}
               >
                   Add item
               </uui-button>
@@ -110,14 +110,15 @@ let r = class extends g {
         `;
   }
 };
-s = /* @__PURE__ */ new WeakSet();
+a = /* @__PURE__ */ new WeakSet();
 _ = function() {
+  var i;
   if (this.newKeyInp.value == "") {
     this._showKeyErrorEmpty = !0;
     return;
   }
   let e = this.newKeyInp.value.trim();
-  if (this._uniquekeys && this._items.some((i) => i.key === e)) {
+  if (this._uniquekeys && (((i = this._items) == null ? void 0 : i.length) ?? !1) && this._items.some((s) => s.key === e)) {
     this._showKeyErrorNotUnique = !0;
     return;
   }
@@ -125,11 +126,11 @@ _ = function() {
     key: e,
     value: this.newValueInp.value
   };
-  this._items = Array.isArray(this.value) ? [...this.value, t] : [t], this.newKeyInp.value = "", this.newValueInp.value = "", u(this, s, h).call(this);
+  this._items = Array.isArray(this.value) ? [...this.value, t] : [t], this.newKeyInp.value = "", this.newValueInp.value = "", u(this, a, h).call(this);
 };
 w = function(e) {
   q(this, { headline: "Delete?", content: "Are you sure you want to delete this item?" }).then(() => {
-    this._items = [...this._items.slice(0, e), ...this._items.slice(e + 1)], u(this, s, h).call(this);
+    this._items = [...this._items.slice(0, e), ...this._items.slice(e + 1)], u(this, a, h).call(this);
   }).catch(() => {
   });
 };
@@ -169,34 +170,34 @@ r.styles = [
       }
       `
 ];
-a([
+o([
   d()
 ], r.prototype, "value", 2);
-a([
+o([
   p()
 ], r.prototype, "_items", 2);
-a([
+o([
   p()
 ], r.prototype, "_uniquekeys", 2);
-a([
+o([
   d({ attribute: !1 })
 ], r.prototype, "config", 1);
-a([
+o([
   p()
 ], r.prototype, "_showKeyErrorEmpty", 2);
-a([
+o([
   p()
 ], r.prototype, "_showKeyErrorNotUnique", 2);
-a([
+o([
   m("#key-value-new-key")
 ], r.prototype, "newKeyInp", 2);
-a([
+o([
   m("#key-value-new-value")
 ], r.prototype, "newValueInp", 2);
-r = a([
-  K("key-values-property-editor-ui")
+r = o([
+  g("key-values-property-editor-ui")
 ], r);
 export {
   r as default
 };
-//# sourceMappingURL=key-values-property-editor-ui.element-DHGhCGEc.js.map
+//# sourceMappingURL=key-values-property-editor-ui.element-P7vlOYIt.js.map

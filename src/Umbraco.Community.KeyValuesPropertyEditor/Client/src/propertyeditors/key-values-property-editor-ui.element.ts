@@ -84,7 +84,7 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends UmbLit
     let newKeyTrimmed = this.newKeyInp.value.trim();
 
     // if the config is set check if the value is unique
-    if (this._uniquekeys && this._items.some(i => i.key === newKeyTrimmed)) {
+    if (this._uniquekeys && (this._items?.length ?? false) && this._items.some(i => i.key === newKeyTrimmed)) {
         this._showKeyErrorNotUnique = true;
         return;
     }
