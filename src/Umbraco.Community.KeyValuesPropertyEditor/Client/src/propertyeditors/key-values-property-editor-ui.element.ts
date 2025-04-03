@@ -1,5 +1,4 @@
 import { LitElement, css, html, customElement, property, state, query, repeat } from "@umbraco-cms/backoffice/external/lit";
-import { UmbControllerHost } from "@umbraco-cms/backoffice/controller-api";
 //import { umbConfirmModal } from '@umbraco-cms/backoffice/modal';
 import { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/property-editor";
 import { UmbPropertyValueChangeEvent } from "@umbraco-cms/backoffice/property-editor";
@@ -34,7 +33,6 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends LitEle
   @property()
   public value: ArrayOf<UmbCommunityKeyValue> = [];
 
-  /* this isn't used at the moment - how to init with the values from value ? */
   @state()
   private _items: ArrayOf<UmbCommunityKeyValue> = [];
 
@@ -46,17 +44,13 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends LitEle
 
   //#host: UmbControllerHost;
 
-  constructor(value: ArrayOf<UmbCommunityKeyValue> = [], host: UmbControllerHost) {
-    super();
+  // use the connectedCallback as suggested by Jacob Overgaard as this is where the this.value is available and assigned
+  connectedCallback() {
+    super.connectedCallback();
 
-    //this.#host = host;  // host is undefined.
-    console.log(host);
-
-    // this is empty there - so how do I assign this.value to the _items on "init"?
-    this._items = value;
-    console.log(this._items.length);
+    // in connectedCallback the this.value is ready
+    this._items = this.value;
   }
-
 
   #onAddRow() {
     const currentInputTyped: UmbCommunityKeyValue = {
@@ -65,7 +59,6 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends LitEle
     };
 
     // check the value is an array, the concatenate o/w create an array with this as the first item
-    // todo - update to use this._items not value when the items is set on init.
     this._items = Array.isArray(this.value) ? [...this.value, currentInputTyped] : [currentInputTyped];
 
     this.#updatePropertyEditorValue();
@@ -106,12 +99,7 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends LitEle
   }
 
   renderItemsList() {
-    // this is a simple example of just writing out the values - to be replaced with the fields below
-    // todo - remove this hack when when assigning value to _items issue fixed
-    if (this._items.length === 0 && this.value?.length !== 0) {
-      this._items = this.value;
-    }
-
+    // writes out the list with fields to update
     if (this._items?.length) {
       return html`
       <ul>
@@ -132,7 +120,7 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends LitEle
         }
       </ul>`;
     } else {
-      return html`<span>create an item</span>`;
+      return html`<span>You don't have any items yet</span>`;
     }
   }
 
