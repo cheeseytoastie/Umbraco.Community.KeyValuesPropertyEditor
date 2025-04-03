@@ -6,7 +6,7 @@
 
 A custom property editor to allow for key value pairs to be entered.
 
-<img alt="..." src="https://github.com/cheeseytoastie/Umbraco.Community.KeyValuesPropertyEditor/blob/develop/docs/screenshots/keyvalue-property-editor.jpg">
+<img alt="..." src="https://github.com/cheeseytoastie/Umbraco.Community.KeyValuesPropertyEditor/blob/main/docs/screenshots/keyvalue-property-editor.jpg">
 <!--
 Including screenshots is a really good idea! 
 
