@@ -1,17 +1,18 @@
-import { LitElement as _, repeat as w, html as o, css as f, property as k, state as b, query as h, customElement as E } from "@umbraco-cms/backoffice/external/lit";
-import { UmbPropertyValueChangeEvent as I } from "@umbraco-cms/backoffice/property-editor";
-var $ = Object.defineProperty, C = Object.getOwnPropertyDescriptor, v = (e) => {
+import { repeat as _, html as o, css as w, property as f, state as k, query as h, customElement as b } from "@umbraco-cms/backoffice/external/lit";
+import { UmbLitElement as E } from "@umbraco-cms/backoffice/lit-element";
+import { umbConfirmModal as I } from "@umbraco-cms/backoffice/modal";
+import { UmbPropertyValueChangeEvent as C } from "@umbraco-cms/backoffice/property-editor";
+var $ = Object.defineProperty, A = Object.getOwnPropertyDescriptor, d = (e) => {
   throw TypeError(e);
 }, l = (e, t, i, a) => {
-  for (var s = a > 1 ? void 0 : a ? C(t, i) : t, c = e.length - 1, m; c >= 0; c--)
-    (m = e[c]) && (s = (a ? m(t, i, s) : m(s)) || s);
+  for (var s = a > 1 ? void 0 : a ? A(t, i) : t, m = e.length - 1, c; m >= 0; m--)
+    (c = e[m]) && (s = (a ? c(t, i, s) : c(s)) || s);
   return a && s && $(t, i, s), s;
-}, A = (e, t, i) => t.has(e) || v("Cannot " + i), P = (e, t, i) => t.has(e) ? v("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, i), r = (e, t, i) => (A(e, t, "access private method"), i), n, d, y, p;
-let u = class extends _ {
+}, P = (e, t, i) => t.has(e) || d("Cannot " + i), V = (e, t, i) => t.has(e) ? d("Cannot add the same private member more than once") : t instanceof WeakSet ? t.add(e) : t.set(e, i), r = (e, t, i) => (P(e, t, "access private method"), i), n, v, y, p;
+let u = class extends E {
   constructor() {
-    super(...arguments), P(this, n), this.value = [], this._items = [];
+    super(...arguments), V(this, n), this.value = [], this._items = [];
   }
-  //#host: UmbControllerHost;
   // use the connectedCallback as suggested by Jacob Overgaard as this is where the this.value is available and assigned
   connectedCallback() {
     super.connectedCallback(), this._items = this.value;
@@ -27,7 +28,7 @@ let u = class extends _ {
     var e;
     return (e = this._items) != null && e.length ? o`
       <ul>
-        ${w(
+        ${_(
       this._items,
       (t) => t.key,
       (t, i) => o`
@@ -70,7 +71,7 @@ let u = class extends _ {
                     class="element"
                     look="primary"
                     label="Add a row"
-                    @click=${r(this, n, d)}
+                    @click=${r(this, n, v)}
                 >
                     Add a key value item
                 </uui-button>
@@ -79,7 +80,7 @@ let u = class extends _ {
   }
 };
 n = /* @__PURE__ */ new WeakSet();
-d = function() {
+v = function() {
   const e = {
     key: this.newNameInp.value,
     value: this.newValueInp.value
@@ -87,13 +88,16 @@ d = function() {
   this._items = Array.isArray(this.value) ? [...this.value, e] : [e], r(this, n, p).call(this);
 };
 y = function(e) {
-  confirm("Are you sure you want to delete this item?") && (this._items = [...this._items.slice(0, e), ...this._items.slice(e + 1)], r(this, n, p).call(this));
+  I(this, { headline: "Delete?", content: "Are you sure you want to delete this item?" }).then(() => {
+    this._items = [...this._items.slice(0, e), ...this._items.slice(e + 1)], r(this, n, p).call(this);
+  }).catch(() => {
+  });
 };
 p = function() {
-  this.value = this._items, this.dispatchEvent(new I());
+  this.value = this._items, this.dispatchEvent(new C());
 };
 u.styles = [
-  f`
+  w`
             #wrapper {
                 margin-top: 10px;
                 display: flex;
@@ -105,10 +109,10 @@ u.styles = [
         `
 ];
 l([
-  k()
+  f()
 ], u.prototype, "value", 2);
 l([
-  b()
+  k()
 ], u.prototype, "_items", 2);
 l([
   h("#key-value-new-key")
@@ -117,9 +121,9 @@ l([
   h("#key-value-new-value")
 ], u.prototype, "newValueInp", 2);
 u = l([
-  E("key-values-property-editor-ui")
+  b("key-values-property-editor-ui")
 ], u);
 export {
   u as default
 };
-//# sourceMappingURL=key-values-property-editor-ui.element-DTydZhMH.js.map
+//# sourceMappingURL=key-values-property-editor-ui.element-B77fl7OX.js.map

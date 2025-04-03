@@ -1,5 +1,6 @@
-import { LitElement, css, html, customElement, property, state, query, repeat } from "@umbraco-cms/backoffice/external/lit";
-//import { umbConfirmModal } from '@umbraco-cms/backoffice/modal';
+import { css, html, customElement, property, state, query, repeat } from "@umbraco-cms/backoffice/external/lit";
+import { UmbLitElement } from '@umbraco-cms/backoffice/lit-element';
+import { umbConfirmModal } from '@umbraco-cms/backoffice/modal';
 import { UmbPropertyEditorUiElement } from "@umbraco-cms/backoffice/property-editor";
 import { UmbPropertyValueChangeEvent } from "@umbraco-cms/backoffice/property-editor";
 
@@ -11,13 +12,10 @@ WHAT WORKS NOW
 * I do check for a new property so that it works to add the first item
 
 TODO:
-1) I can't work out how I'd init _items (tried in the constructor but it's empty there?) as I'm unclear on how this.value is populated in the first place - I seem to declare it and it's magically assigned (perhaps in UmbPropertyEditorUiElement?)
-2) Sorter
-3) Check the key is unique and not null on add (perhaps a nice config option)
-4) Maybe a backend property type convertor. - if we use a key value pair then recheck items are unique - what to do if some junk duplicates are there?
-5) Style and tidy up
-6) Fix the constructor - init the _items?
-7) Use an umbraco confirm dialog - didn't seem to have the host / controller 
+1) Sorter
+2) Check the key is unique and not null on add (perhaps a nice config option)
+3) Maybe a backend property type convertor. - if we use a key value pair then recheck items are unique - what to do if some junk duplicates are there?
+4) Style and tidy up
 */
 
 // todo - should these be here or inside the custom element
@@ -28,7 +26,7 @@ type UmbCommunityKeyValue = {
 type ArrayOf<T> = T[];
 
 @customElement('key-values-property-editor-ui')
-export default class UmbCommunityKeyValuesPropertyEditorUIElement extends LitElement implements UmbPropertyEditorUiElement {
+export default class UmbCommunityKeyValuesPropertyEditorUIElement extends UmbLitElement implements UmbPropertyEditorUiElement {
 
   @property()
   public value: ArrayOf<UmbCommunityKeyValue> = [];
@@ -41,8 +39,6 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends LitEle
 
   @query('#key-value-new-value')
   newValueInp!: HTMLInputElement;
-
-  //#host: UmbControllerHost;
 
   // use the connectedCallback as suggested by Jacob Overgaard as this is where the this.value is available and assigned
   connectedCallback() {
@@ -65,19 +61,14 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends LitEle
   }
 
   #onDelete(index: number) {
-    // todo - can't get the host to use the umbConfirmModal here - what should it be?
-    // await umbConfirmModal(this.#host, {
-    //   headline: `Delete ${this.value || 'item'}`,
-    //   content: 'Are you sure you want to delete this item?',
-    //   color: 'danger',
-    //   confirmLabel: 'Delete',
-    // });
-   
-    // hack use a confirm yes no dialog for now
-    if (confirm("Are you sure you want to delete this item?")) {
-      this._items = [...this._items.slice(0, index), ...this._items.slice(index + 1)];
-      this.#updatePropertyEditorValue();
-    }
+    umbConfirmModal(this, { headline: 'Delete?', content: 'Are you sure you want to delete this item?' })
+      .then(() => {
+        this._items = [...this._items.slice(0, index), ...this._items.slice(index + 1)];
+        this.#updatePropertyEditorValue();
+      })
+      .catch(() => {
+        //console.log('Delete cancelled')
+      })
   }
 
   private _onEditRowValue(e: InputEvent, index: number) {
