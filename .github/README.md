@@ -33,12 +33,20 @@ Add the property editor as a Data Type and then add to your doc types.
 
 ```
 
+## Is it Ready?
+
+It appears to be useable - I would like to better improve the validation handling and ensure that it's been built in an "Umbraco" way but it does the job I needed it to do.
+
+## Missing features
+
+Needs a sort. Contributions welcome! 
+
 ## Contributing
 
 Contributions to this package are most welcome! Please read the [Contributing Guidelines](CONTRIBUTING.md).
 
 ## Acknowledgments
-For grateful points in the forum;
+Providing invaluable pointers in the forum;
 * Sebastiaan Janssen
 * Jacob Overgaard
 * Luuk Peters
