@@ -57,6 +57,9 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends UmbLit
     // check the value is an array, the concatenate o/w create an array with this as the first item
     this._items = Array.isArray(this.value) ? [...this.value, currentInputTyped] : [currentInputTyped];
 
+    this.newNameInp.value = '';
+    this.newValueInp.value = '';
+
     this.#updatePropertyEditorValue();
   }
 
@@ -89,6 +92,16 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends UmbLit
     this.dispatchEvent(new UmbPropertyValueChangeEvent());
   }
 
+  // Prevent valid events from bubbling outside the message element
+  #onValid(event: Event) {
+    event.stopPropagation();
+  }
+
+  // Prevent invalid events from bubbling outside the message element
+  #onInvalid(event: Event) {
+    event.stopPropagation();
+  }
+
   renderItemsList() {
     // writes out the list with fields to update
     if (this._items?.length) {
@@ -96,16 +109,33 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends UmbLit
       <ul>
         ${repeat(this._items, (item) => item.key, (item, index) => html`
             <li>
-              <input type="text" name="${index}" value="${item.key}" disabled="disabled"></input>
-              <input type="text" name="${index}" value="${item.value}" @input=${(e: InputEvent) => this._onEditRowValue(e, index)}></input>
-              <uui-button
-						    compact
-						    color="danger"
-						    label="remove ${item.key}"
-						    look="outline"
-						    @click=${() => this.#onDelete(index)}>
-						    <uui-icon name="icon-trash"></uui-icon>
-					    </uui-button>
+              <umb-form-validation-message id="validation-message" @invalid=${this.#onInvalid} @valid=${this.#onValid}>
+                <div class="wrapper">
+                  <uui-input
+                    class="kv-input"
+                    type="text"
+                    name="${index}"
+                    value="${item.key}"
+                    required=true
+                    required-message="A key value is required"
+                    ></uui-input>
+                  <uui-input
+                    class="kv-input"
+                    type="text"
+                    name="${index}"
+                    value="${item.value}"
+                    @input=${(e: InputEvent) => this._onEditRowValue(e, index)}>
+                  </uui-input>
+                  <uui-button
+						        compact
+						        color="danger"
+						        label="remove ${item.key}"
+						        look="outline"
+						        @click=${() => this.#onDelete(index)}>
+						        <uui-icon name="icon-trash"></uui-icon>
+					        </uui-button>
+                </div>
+              </umb-form-validation-message>
             </li> `
       )
         }
@@ -118,46 +148,52 @@ export default class UmbCommunityKeyValuesPropertyEditorUIElement extends UmbLit
   render() {
     return html`
         ${this.renderItemsList()}
-            <span>Add a new item</span>
-            <uui-input
-                id="key-value-new-key"
-                class="element"
-                label="text input"
-                value=""
-            >
-            </uui-input>
-            <uui-input
-                id="key-value-new-value"
-                class="element"
-                label="text input"
-                value=""
-            >
-            </uui-input>
-            <div id="wrapper">
-                <uui-button
-                    id="add-row-button"
-                    class="element"
-                    look="primary"
-                    label="Add a row"
-                    @click=${this.#onAddRow}
-                >
-                    Add a key value item
-                </uui-button>
+            <hr/>
+            <div class="wrapper">
+              <uui-input
+                  id="key-value-new-key"
+                  class="kv-input"
+                  label="text input"
+                  placeholder="key*"
+                  value=""
+              >
+              </uui-input>
+              <uui-input
+                  id="key-value-new-value"
+                  class="kv-input"
+                  label="text input"
+                  value=""
+                  placeholder="value"
+              >
+              </uui-input>
+              <uui-button
+                  id="add-row-button"
+                  class="kv-input"
+                  look="primary"
+                  label="Add item"
+                  @click=${this.#onAddRow}
+              >
+                  Add item
+              </uui-button>
             </div>
         `;
   }
 
   static styles = [
     css`
-            #wrapper {
-                margin-top: 10px;
-                display: flex;
-                gap: 10px;
-            }
-            .element {
-                width: 100%;
-            }
-        `,
+      .wrapper {
+          margin-top: 10px;
+          display: flex;
+          gap: 10px;
+      }
+      .kv-input {
+        flex: 1;
+      }
+      ul {
+        list-style: none;
+        padding-inline-start: 0;
+      }
+      `,
   ];
 }
 
