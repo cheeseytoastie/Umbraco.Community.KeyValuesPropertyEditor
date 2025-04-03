@@ -1,0 +1,17 @@
+@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello world</title>
+</head>
+
+<body>
+    <h1>@(Model.Value<string>("title"))</h1>
+    @(Model.Value<Umbraco.Cms.Core.Strings.HtmlEncodedString>("bodyText"))
+</body>
+</html>
