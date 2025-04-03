@@ -15,7 +15,7 @@ WHAT WORKS NOW
 * Can enable / disable a uniqueness check on the key
 
 TODO:
-1) Sorter
+1) Sorter - UmbSorterController expects a string array - how would we use this?
 2) Maybe a backend property type convertor. - if we use a key value pair then recheck items are unique - what to do if some junk duplicates are there?
 3) Use UmbValidationContext properly - couldn't get it to play nicely
 */
