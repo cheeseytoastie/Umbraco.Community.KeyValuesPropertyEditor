@@ -44,5 +44,9 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Client\scripts\" />
+  </ItemGroup>
 
 </Project>
